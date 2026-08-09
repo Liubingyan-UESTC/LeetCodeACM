@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Node (误装依赖，不纳入版本库)
+node_modules/
+package.json
+package-lock.json
+
+# 编译产物
+path_planing
+*.o
+*.out
+a.out
+
+# 本地 ACM 测试输入/输出
+io/input.txt
+io/output.txt
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+*~

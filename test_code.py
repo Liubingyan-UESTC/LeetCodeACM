@@ -4,11 +4,14 @@
 Usage:
     python test_code.py <file_name>
 
-Example:
+Examples:
     python test_code.py combination_sum
+    python test_code.py hashmap/combination_sum
+    python test_code.py longest_substr.py
 
-Looks up ~/std/LeetCode/<file_name>.py, redirects stdin from ./io/input.txt,
-then calls that module's main().
+Looks up <file_name>.py in ~/std/LeetCode/ (root, for backward compatibility)
+or in any of its category subdirectories (hashmap/, dp/, ...), redirects stdin
+from ./io/input.txt, then calls that module's main().
 """
 
 from __future__ import annotations
@@ -23,12 +26,43 @@ IO_DIR = Path.cwd() / "io"
 INPUT_FILE = IO_DIR / "input.txt"
 
 
+# 非算法分类目录：公共模板/依赖/缓存，检索时跳过
+_SKIP_DIRS = {"templates", "io", "node_modules", "__pycache__"}
+
+
 def resolve_solution_path(file_name: str) -> Path:
     name = file_name[:-3] if file_name.endswith(".py") else file_name
-    path = LEETCODE_DIR / f"{name}.py"
-    if not path.is_file():
-        raise FileNotFoundError(f"solution not found: {path}")
-    return path
+
+    # 支持直接传二级目录路径，如 hashmap/combination_sum
+    if "/" in name or "\\" in name:
+        path = LEETCODE_DIR / f"{name}.py"
+        if not path.is_file():
+            raise FileNotFoundError(f"solution not found: {path}")
+        return path
+
+    # 先查根目录（向后兼容），再查各分类子目录
+    candidates = []
+    direct = LEETCODE_DIR / f"{name}.py"
+    if direct.is_file():
+        candidates.append(direct)
+    for sub_dir in sorted(
+        p for p in LEETCODE_DIR.iterdir()
+        if p.is_dir() and not p.name.startswith(".") and p.name not in _SKIP_DIRS
+    ):
+        sub_file = sub_dir / f"{name}.py"
+        if sub_file.is_file():
+            candidates.append(sub_file)
+
+    if len(candidates) == 1:
+        return candidates[0]
+    if len(candidates) > 1:
+        raise FileNotFoundError(
+            f"ambiguous solution name {name!r}: found in multiple directories:\n"
+            + "\n".join(f"  {c}" for c in candidates)
+        )
+    raise FileNotFoundError(
+        f"solution not found: {name}.py under {LEETCODE_DIR} or its category subdirectories"
+    )
 
 
 def load_module(path: Path):

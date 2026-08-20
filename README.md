@@ -20,7 +20,7 @@ python test_code.py combination_sum.py
 
 等价流程：
 
-1. 在 `~/std/LeetCode/<file_name>.py` 中查找题解
+1. 在 `~/std/LeetCode/` 根目录或某个算法分类子目录（`hashmap/`、`dp/` 等）中查找题解
 2. 从**当前工作目录**的 `io/input.txt` 读取输入
 3. 将 `stdin` 重定向为该输入文件
 4. 导入题解模块并调用 `main()`
@@ -29,13 +29,16 @@ python test_code.py combination_sum.py
 
 | 路径 | 作用 |
 |------|------|
-| `~/std/LeetCode/<file_name>.py` | 算法实现文件（固定从此目录加载） |
+| `~/std/LeetCode/<分类目录>/<file_name>.py` | 算法实现文件（按分类放在二级目录，如 `hashmap/combination_sum.py`） |
+| `~/std/LeetCode/<file_name>.py` | 兼容：根目录下仍可直接放置/加载题解 |
+| `~/std/LeetCode/templates/` | 公共模板（链表/二叉树等），不属于题解，不会被检索 |
 | `./io/input.txt`（当前工作目录下） | ACM 格式输入数据 |
 | `./io/output.txt`（可选） | 期望输出，可自行对照 |
 
 因此：
 
-- 题解文件放在 `~/std/LeetCode/` 下
+- 题解文件按算法类型放在 `~/std/LeetCode/` 的二级分类目录下（如 `hashmap/`、`dp/`、`doubleptr/`、`slidingwindow/`、`linkedlist/`、`binarytree/`、`graph/`、`mathmatic/`）
+- 只需文件名即可定位，脚本会自动在根目录及各分类目录中检索；也可直接传目录路径，如 `python test_code.py hashmap/combination_sum`
 - 测试时在含有 `io/` 目录的工作目录下运行脚本
 - 同一题换测试数据时，只需改 `io/input.txt`，不用改题解
 
@@ -89,7 +92,7 @@ def main():
 
 假设：
 
-- 题解：`~/std/LeetCode/combination_sum.py`（含 `main()`）
+- 题解：`~/std/LeetCode/hashmap/combination_sum.py`（含 `main()`）
 - 当前目录有 `io/input.txt`
 
 执行：
@@ -106,7 +109,8 @@ python test_code.py combination_sum
 | 报错 | 原因 | 处理 |
 |------|------|------|
 | `Usage: python test_code.py <file_name>` | 未传文件名或参数过多 | 只传一个题解名 |
-| `solution not found: ...` | `~/std/LeetCode/` 下没有对应 `.py` | 检查文件名与路径 |
+| `solution not found: ...` | 根目录及所有分类子目录下都没有对应 `.py` | 检查文件名、所属分类目录 |
+| `ambiguous solution name ...` | 同名题解同时存在于多个目录 | 用目录路径明确指定，如 `hashmap/combination_sum` |
 | `input file not found: .../io/input.txt` | 当前目录缺少 `io/input.txt` | 先写好输入，或 `cd` 到含有 `io/` 的目录 |
 | `... must define callable main()` | 题解缺少 `main()` | 补充入口函数 |
 
@@ -114,7 +118,7 @@ python test_code.py combination_sum
 
 写新题时只需：
 
-1. 新建 `~/std/LeetCode/<题名>.py`，实现算法与 `main()`
+1. 新建 `~/std/LeetCode/<分类目录>/<题名>.py`，实现算法与 `main()`
 2. 准备 `io/input.txt`
 3. 运行 `python test_code.py <题名>`
 

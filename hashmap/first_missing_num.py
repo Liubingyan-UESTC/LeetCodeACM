@@ -1,4 +1,6 @@
 from typing import List
+import sys
+input = sys.stdin.readline
 
 class Solution:
     def swap(self , nums: List[int] , pos_a):
@@ -25,11 +27,11 @@ class Solution:
         return len_nums+1
     
 
+def main():
+    n = int(input())
+    nums = list(map(int, input().split()))
+    print(Solution().firstMissingPositive(nums))
+
+
 if __name__ == "__main__":
-    solution = Solution()
-    # tests = [3,4,-1,1]
-    # tests = [0 , 1 , 2]
-    tests = [1 , 1]
-    # tests = [-1,4,2,1,9,10]
-    res = solution.firstMissingPositive(tests)
-    print(res)
+    main()

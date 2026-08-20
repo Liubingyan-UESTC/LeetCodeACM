@@ -45,4 +45,6 @@ def main():
 
         temp = val
     print(sign +"".join(res))
-main()
+
+if __name__ == "__main__":
+    main()

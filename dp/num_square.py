@@ -1,5 +1,9 @@
 
 
+import sys
+input = sys.stdin.readline
+
+
 class Solution:
     def getMin(self , dp , target , squares):
         idx = 0
@@ -34,7 +38,10 @@ class Solution:
 
         return dp[n]
 
+def main():
+    n = int(input())
+    print(Solution().numSquares(n))
+
+
 if __name__ == "__main__":
-    solution = Solution()
-    test_data = 12
-    print(solution.numSquares(test_data))
+    main()

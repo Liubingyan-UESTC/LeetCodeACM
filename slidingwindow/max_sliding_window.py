@@ -4,13 +4,6 @@ from collections import deque
 input = sys.stdin.readline
 
 def max_sliding_window(nums : list , k : int) -> list:
-    # 暴力解 O(n*k)
-    # res = []
-    # for i in range(len(nums) - k + 1):
-    #     res.append(max(nums[i : i + k]))
-    # return res
-
-    # 单调递减队列 O(n)：队列中存下标，队首永远是窗口最大值
     dq = deque()
     res = []
     for i , x in enumerate(nums):

@@ -3,7 +3,6 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 from templates.binary_tree import TreeNode
 
-
 input = sys.stdin.readline 
 
 def get_depth(root : TreeNode|None):
@@ -13,7 +12,7 @@ def get_depth(root : TreeNode|None):
 
 
 def main():
-    nodes = [1,2,3,None , 5,7,8]
+    nodes = list(map(str , input().strip()))
     root = TreeNode().build_tree(nodes)
     print(get_depth(root))
 

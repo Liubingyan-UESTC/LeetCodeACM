@@ -15,11 +15,16 @@ class TreeNode:
     def get_right(self) -> 'TreeNode | None':
         return self.right
 
-    def build_tree(self , node_list):
+    def build_tree(self , node_list) -> "TreeNode":
         if not node_list or node_list[0] is None:
+            self.val = 0
+            self.left = None
+            self.right = None
             return None
-        root = TreeNode(node_list[0])
-        queue = deque([root])
+        self.val = node_list[0]
+        self.left = None
+        self.right = None
+        queue: deque[TreeNode] = deque([self])
         i = 1
         while queue and i < len(node_list):
             node = queue.popleft()
@@ -33,7 +38,7 @@ class TreeNode:
                     node.right = TreeNode(node_list[i])
                     queue.append(node.right)
                 i += 1
-        return root
+        return self
 
     def print_tree(self):
         if not self:

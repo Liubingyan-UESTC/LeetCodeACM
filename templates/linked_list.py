@@ -12,7 +12,10 @@ class ListNode:
             cur = cur.next
         return vals
 
-    def create(self, nums: list, head_insert: bool = True) -> "ListNode | None":
+    def create(
+            self, 
+            nums: list, 
+            head_insert: bool = True) -> "ListNode | None":
         """
         由数组创建链表。
         head_insert=True  头插法（结果顺序与 nums 相反）

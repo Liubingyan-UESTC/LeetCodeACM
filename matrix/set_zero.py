@@ -29,7 +29,10 @@ def main():
         [4,1,0,6,6,2],
         [8,0,2,5,3,7]
     ]
-    print(set_zero(mat))
+    mat = set_zero(mat)
+    for i in range(len(mat)):
+        print(mat[i])
+    # print(set_zero(mat))
 
 if __name__ == "__main__":
     main()
